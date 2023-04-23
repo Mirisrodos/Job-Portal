@@ -6,8 +6,10 @@ import com.oose.jobportal.services.DetailWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class DetailWorkServiceImpls implements DetailWorkService {
+public class DetailWorkServiceImpl implements DetailWorkService {
 
     @Autowired
     DetailWorkRepo detailWorkRepo;
@@ -15,5 +17,10 @@ public class DetailWorkServiceImpls implements DetailWorkService {
     @Override
     public DetailWork findDetailWorkByID(int id) {
         return detailWorkRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<DetailWork> findAll() {
+        return detailWorkRepo.findAll();
     }
 }

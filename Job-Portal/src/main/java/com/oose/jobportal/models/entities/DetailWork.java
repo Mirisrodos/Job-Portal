@@ -15,7 +15,7 @@ public class DetailWork {
 	private int detailworkID;
 
 	@OneToOne(targetEntity = Payment.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "paymentID", nullable = true)
+	@JoinColumn(name = "paymentID", nullable = true, unique = true)
 	private Payment payment;
 	
 	@Column(name = "money", nullable = true)
@@ -24,6 +24,9 @@ public class DetailWork {
 	@Column(name = "hours", nullable = true)
 	private int hours;
 
-	@Column(name = "description", nullable = true, length = 150)
+	@Column(name = "description", nullable = true)
 	private String description;
+
+	@Column(name = "contract", nullable = true, length = 20)
+	private String contract;
 }

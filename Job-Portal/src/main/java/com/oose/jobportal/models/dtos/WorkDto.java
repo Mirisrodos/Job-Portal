@@ -18,4 +18,5 @@ public class WorkDto {
     private String workname;
     private int detailworkID;
     private int typeworkID;
+    private String image;
 }

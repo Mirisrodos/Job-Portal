@@ -24,7 +24,7 @@ public class Work {
 	private TypeWork type_work;
 
 	@OneToOne(targetEntity = DetailWork.class, fetch = FetchType.EAGER)
-	@JoinColumn(nullable = true, name = "detailworkID")
+	@JoinColumn(nullable = true, name = "detailworkID", unique = true)
 	private DetailWork detailwork;
 	
 	@Column(name = "location", nullable = true)
@@ -38,4 +38,8 @@ public class Work {
 
 	@Column(name = "income", nullable = true)
 	private int income;
+
+	@Column(name = "image", nullable = true)
+	private String image;
+
 }

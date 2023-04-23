@@ -19,6 +19,7 @@ public class WorkMapper {
             workDto.setWorkname(work.getWorkname());
             workDto.setDetailworkID(work.getDetailwork().getDetailworkID());
             workDto.setTypeworkID(work.getType_work().getTypeworkID());
+            workDto.setImage(work.getImage());
         } else {
             workDto.setWorkID(-1);
             workDto.setDate(null);
@@ -28,6 +29,7 @@ public class WorkMapper {
             workDto.setWorkname("");
             workDto.setDetailworkID(0);
             workDto.setTypeworkID(0);
+            workDto.setImage("");
         }
 
         return workDto;

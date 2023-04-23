@@ -59,7 +59,7 @@ function renderData(comData) {
     combox.addEventListener("click", (event) => {
       for (let i = 0; i < comData.length; i++) {
         if (comData[i].id === combox.dataset.id) {
-          localStorage.setItem("detailCompany", JSON.stringify(comData[i]));
+          localStorage.setItem("detailwork", JSON.stringify(comData[i]));
           window.location.href = "com_detail.html";
         }
       }

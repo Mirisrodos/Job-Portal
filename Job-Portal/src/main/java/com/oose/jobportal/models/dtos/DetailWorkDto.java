@@ -14,4 +14,5 @@ public class DetailWorkDto {
     private int hours;
     private int money;
     private int paymentID;
+    private String contract;
 }

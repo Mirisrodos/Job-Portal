@@ -1,6 +1,6 @@
 // let topworkAPI ="https://636d633891576e19e327545a.mockapi.io/companies"
-let topworkAPI = "http://192.168.138.1:8080/api/client/top10-work"
-let detailworkAPI = "http://192.168.138.1:8080/api/client/detailwork?id=1"
+let topworkAPI = "http://192.168.138.1:8080/api/work/top10-work"
+let detailworkAPI = "http://192.168.138.1:8080/api/work/detailwork"
 
 
 document.getElementById("searchbtn").addEventListener("click",
@@ -22,14 +22,8 @@ async function fetchdata() {
     try {
         let res = await fetch(topworkAPI)
         let data = await res.json()
-        console.log(data)
-        //renderdata(data)
-        //rendercompanydata(data)
-        //render_featurecard(data)
 
-        realData = data;
-        //    renderData(realData)
-        renderData2(realData)
+        renderData2(data)
     } catch (error) {
         alert(error)
     }
@@ -39,27 +33,27 @@ async function fetchdata() {
 //Search Section 
 let companyobj = [{
     name: "Hồ Chí Minh >",
-    img: "https://static.naukimg.com/s/0/0/i/trending-naukri/mnc.svg"
+    img: "https://cdn.haitrieu.com/wp-content/uploads/2022/07/Thanh-pho-Ho-Chi-Minh-1.png"
 
 }, {
     name: "Hà nội >",
-    img: "https://static.naukimg.com/s/0/0/i/trending-naukri/mnc.svg"
+    img: "https://cdn.haitrieu.com/wp-content/uploads/2022/06/Logo-Ha-Noi.png"
 },
 {
-    name: "Vũng Tàu >",
-    img: "https://static.naukimg.com/s/0/0/i/trending-naukri/mnc.svg"
+    name: "Đà Nẵng >",
+    img: "https://cdn.haitrieu.com/wp-content/uploads/2022/06/Logo-Thanh-Pho-Da-Nang.png"
 },
 {
-    name: "Cần thơ >",
-    img: "https://static.naukimg.com/s/0/0/i/trending-naukri/mnc.svg"
+    name: "Châu Đốc >",
+    img: "https://cdn.haitrieu.com/wp-content/uploads/2022/09/Logo-Thanh-Pho-Chau-Doc-1024x1024.png"
 },
 {
     name: "Bình Định >",
-    img: "https://static.naukimg.com/s/0/0/i/trending-naukri/mnc.svg"
+    img: "https://cdn.haitrieu.com/wp-content/uploads/2022/08/Logo-Tinh-Binh-Dinh.png"
 },
 {
     name: "Bình Dương >",
-    img: "https://static.naukimg.com/s/0/0/i/trending-naukri/mnc.svg"
+    img: "https://cdn.haitrieu.com/wp-content/uploads/2022/06/Logo-Binh-Duong.png"
 }]
 
 rendercompanycarddata(companyobj)
@@ -97,7 +91,7 @@ function renderData2(comData) {
                 <div>
                     <img
                     // Type Job Avatar (Create Obj Store Img Order By Type Job)
-                        src="https://static.naukimg.com/s/0/0/i/trending-naukri/mnc.svg"
+                        src=${item.image}
                         alt="image"
                     />
                 </div>
@@ -115,8 +109,9 @@ function renderData2(comData) {
     for (let combox of comboxes) {
         combox.addEventListener("click", (event) => {
             for (let i = 0; i < comData.length; i++) {
-                if (String(comData[1].workID) === combox.dataset.id) {
-                    localStorage.setItem("detailCompany", JSON.stringify(comData[i]));
+                if (String(comData[i].workID) === combox.dataset.id) {
+                    console.log(JSON.stringify(comData[i]))
+                    localStorage.setItem("detailwork", JSON.stringify(comData[i]));
                     window.location.href = "com_detail.html";
                 }
             }
@@ -167,7 +162,6 @@ function renderData2(comData) {
 // testing
 
 fetchdata();
-
 
 function renderdata(arr) {
     let renderCard = document.querySelector("#searchsection")
