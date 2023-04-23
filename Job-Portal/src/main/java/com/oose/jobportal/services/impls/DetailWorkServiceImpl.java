@@ -15,12 +15,17 @@ public class DetailWorkServiceImpl implements DetailWorkService {
     DetailWorkRepo detailWorkRepo;
 
     @Override
-    public DetailWork findDetailWorkByID(int id) {
+    public DetailWork findByID(int id) {
         return detailWorkRepo.findById(id).orElse(null);
     }
 
     @Override
     public List<DetailWork> findAll() {
         return detailWorkRepo.findAll();
+    }
+
+    @Override
+    public DetailWork save(DetailWork detailWork) {
+        return detailWorkRepo.save(detailWork);
     }
 }

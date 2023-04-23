@@ -27,8 +27,8 @@ function renderDetails(typework, detailwork) {
         <p>Location : ${work.location}</p>
         <p>Date : ${work.date}h</p>
         <p>Hours : ${detailwork.hours}h</p>
-        <p>Contact : ${detailwork.contract}</p>
-        <p>Salary : ${work.income}$</p>
+        <p>Contact : ${detailwork.contact}</p>
+        <p>Salary : ${detailwork.income}$</p>
         <p>Type work : ${typework.nametypework}</p>
         <p>Description: ${detailwork.description}</p>
     `

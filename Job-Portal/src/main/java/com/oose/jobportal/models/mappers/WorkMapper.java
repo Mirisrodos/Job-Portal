@@ -13,7 +13,6 @@ public class WorkMapper {
         if(work != null) {
             workDto.setWorkID(work.getWorkID());
             workDto.setDate(work.getDate());
-            workDto.setIncome(work.getIncome());
             workDto.setLocation(work.getLocation());
             workDto.setQuantity(work.getQuantity());
             workDto.setWorkname(work.getWorkname());
@@ -23,7 +22,6 @@ public class WorkMapper {
         } else {
             workDto.setWorkID(-1);
             workDto.setDate(null);
-            workDto.setIncome(0);
             workDto.setLocation("");
             workDto.setQuantity(0);
             workDto.setWorkname("");

@@ -5,7 +5,9 @@ import com.oose.jobportal.models.entities.DetailWork;
 import java.util.List;
 
 public interface DetailWorkService {
-    DetailWork findDetailWorkByID(int id);
+    DetailWork findByID(int id);
 
     List<DetailWork> findAll();
+
+    DetailWork save(DetailWork detailWork);
 }

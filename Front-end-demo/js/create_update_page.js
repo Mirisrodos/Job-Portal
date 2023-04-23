@@ -1,4 +1,5 @@
-let createworkAPI = ""
+let createDetailAPI = "http://192.168.138.1:8080/api/client/work/createDetail"
+let createWorkAPI = "http://192.168.138.1:8080/api/client/work/createWork"
 
 function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -83,31 +84,51 @@ if (dataId == null) {
         let hours = document.querySelector("#hours")
         let type = document.querySelector("#type")
         let desc = document.querySelector("#desc")
-        let obj = {
-            job_name: job_name.value,
-            date: date.value,
-            contact: contact.value,
-            quantity: quantity.value,
-            income: income.value,
-            Salary: comp_salary.value,
-            location: location.value,
+        // let obj = {
+        //     job_name: job_name.value,
+        //     date: date.value,
+        //     contact: contact.value,
+        //     quantity: quantity.value,
+        //     income: income.value,
+        //     Salary: comp_salary.value,
+        //     location: location.value,
+        //     hours: hours.value,
+        //     type: type.value,
+        //     desc: desc.value
+        // }
+
+        let detailObj = {
+            contact:contact.value,
+            description: desc.value,
             hours: hours.value,
-            type: type.value,
-            desc: desc.value
+            income: income.value,
         }
-        addtoserver(obj)
+
+        let workObj = {
+            date: date.value,
+            location: location.value,
+            quantity: quantity.value,
+            workname: job_name.value,
+            typework: type.value
+        }
+        addtoserver(detailObj, workObj)
     })
 }
 
-async function addtoserver(obj) {
+async function addtoserver(detailObj, workObj) {
     try {
-        let add_data = await fetch(createworkAPI, {
+        let add_data = await fetch(createDetailAPI, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(obj)
+            body: JSON.stringify(detailObj)
         })
+        
+        let detailWork = await add_data.json()
+        // workObj["detailworkID"] = detailObj.d
+        console.log(detailObj)
+        
         if (add_data.ok) {
             alert("Data Added Successfully")
         } else {

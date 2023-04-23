@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface WorkService {
     List<Work> findTop10Work(Date current);
+    Work save(Work work);
 }

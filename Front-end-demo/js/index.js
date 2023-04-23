@@ -97,8 +97,8 @@ function renderData2(comData) {
                 </div>
                 <div>
                     <h3>${item.workname}</h3>
-                    <p><i class="fa-solid fa-star"></i>Lương: ${item.income}$</p>
                     <p>Địa điểm: ${item.location}</p>
+                    <p>Thời gian: ${item.date}</p>
                     <p>Số lượng: ${item.quantity}</p>
                 </div>
             </div>

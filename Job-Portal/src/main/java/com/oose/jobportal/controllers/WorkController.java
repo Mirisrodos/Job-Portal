@@ -47,7 +47,7 @@ public class WorkController {
     @GetMapping("/detailwork")
     public ResponseEntity<?> getDetailWork(@Valid @RequestParam int id) {
         if (id != 0) {
-            DetailWork detailWork = detailWorkService.findDetailWorkByID(id);
+            DetailWork detailWork = detailWorkService.findByID(id);
             DetailWorkDto detailWorkDto = DetailWorkMapper.mappingToDto(detailWork);
 
             return ResponseEntity.ok(detailWorkDto);

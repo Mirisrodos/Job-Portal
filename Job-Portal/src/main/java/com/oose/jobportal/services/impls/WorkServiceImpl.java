@@ -18,4 +18,9 @@ public class WorkServiceImpl implements WorkService {
     public List<Work> findTop10Work(Date current) {
         return workRepo.findTop10Work(current);
     }
+
+    @Override
+    public Work save(Work work) {
+        return workRepo.save(work);
+    }
 }

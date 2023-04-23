@@ -12,7 +12,6 @@ import java.util.Date;
 public class WorkDto {
     private int workID;
     private Date date;
-    private int income;
     private String location;
     private int quantity;
     private String workname;

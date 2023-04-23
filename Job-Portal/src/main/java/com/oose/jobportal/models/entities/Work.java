@@ -36,9 +36,6 @@ public class Work {
 	@Column(name = "date", nullable = true)
 	private Date date;
 
-	@Column(name = "income", nullable = true)
-	private int income;
-
 	@Column(name = "image", nullable = true)
 	private String image;
 
