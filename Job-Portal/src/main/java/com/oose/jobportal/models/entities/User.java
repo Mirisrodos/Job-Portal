@@ -37,5 +37,7 @@ public class User {
 
 	@Column(name = "accountnumber", nullable = true, length = 20)
 	private String accountnumber;
-	
+
+	@Column
+	private String imageUser;
 }

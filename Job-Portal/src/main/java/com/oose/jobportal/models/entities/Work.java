@@ -39,4 +39,6 @@ public class Work {
 	@Column(name = "image", nullable = true)
 	private String image;
 
+	@Column(name = "involved", nullable = true)
+	private int involved;
 }

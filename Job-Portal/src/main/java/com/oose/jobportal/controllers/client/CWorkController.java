@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("http://127.0.0.1:5501/")
 public class CWorkController {
     @Autowired
-    WorkService workService;
+    private WorkService workService;
     @Autowired
-    DetailWorkService detailWorkService;
+    private DetailWorkService detailWorkService;
     @Autowired
-    TypeWorkService typeWorkService;
+    private TypeWorkService typeWorkService;
 
     @PostMapping("/createWork")
     public ResponseEntity<?> createWork(@RequestBody WorkDto workDto) {

@@ -26,11 +26,11 @@ import java.util.List;
 @CrossOrigin("http://127.0.0.1:5501/")
 public class WorkController {
     @Autowired
-    WorkService workService;
+    private WorkService workService;
     @Autowired
-    DetailWorkService detailWorkService;
+    private DetailWorkService detailWorkService;
     @Autowired
-    TypeWorkService typeWorkService;
+    private TypeWorkService typeWorkService;
 
     @GetMapping("/top10-work")
     public ResponseEntity<?> getTop10Work() {
@@ -43,7 +43,14 @@ public class WorkController {
         return ResponseEntity.ok(workDtoList);
     }
 
-    // Kiểm tra lại
+    @GetMapping("/find-all-work")
+    public ResponseEntity<?> getAllWork() {
+        List<Work> workList = workService.findAll();
+
+        return ResponseEntity.ok(WorkMapper.mappingToListWork(workList));
+    }
+
+
     @GetMapping("/detailwork")
     public ResponseEntity<?> getDetailWork(@Valid @RequestParam int id) {
         if (id != 0) {

@@ -23,4 +23,9 @@ public class WorkServiceImpl implements WorkService {
     public Work save(Work work) {
         return workRepo.save(work);
     }
+
+    @Override
+    public List<Work> findAll() {
+        return workRepo.findAll();
+    }
 }

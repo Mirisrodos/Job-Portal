@@ -99,7 +99,7 @@ function renderData2(comData) {
                     <h3>${item.workname}</h3>
                     <p>Địa điểm: ${item.location}</p>
                     <p>Thời gian: ${item.date}</p>
-                    <p>Số lượng: ${item.quantity}</p>
+                    <p>Số lượng: ${item.involved}/${item.quantity}</p>
                 </div>
             </div>
         `

@@ -29,7 +29,7 @@ if (dataId == null) {
         </div>
         <div class="comp_data" id="comp_lgo">
            <label for="companylogo">Date : </label>
-        <input type="text" id="date" placeholder="Enter URL of logo here..." required>
+        <input type="date" id="date" placeholder="Enter URL of logo here..." required>
         </div>
         <div class="comp_data" id="comp_cntct">
         <label for="contact">Contact : </label>
@@ -75,7 +75,7 @@ if (dataId == null) {
     let save_add_btn = document.querySelector("#save")
     save_add_btn.addEventListener("click", (event) => {
         event.preventDefault()
-        let job_name = document.querySelector("#job_name")
+        let job_name = document.querySelector("#name")
         let date = document.querySelector("#date")
         let contact = document.querySelector("#contact")
         let quantity = document.querySelector("#quantity")
@@ -96,12 +96,12 @@ if (dataId == null) {
         //     type: type.value,
         //     desc: desc.value
         // }
-
+        
         let detailObj = {
             contact:contact.value,
             description: desc.value,
             hours: hours.value,
-            income: income.value,
+            income: income.value
         }
 
         let workObj = {
@@ -109,15 +109,17 @@ if (dataId == null) {
             location: location.value,
             quantity: quantity.value,
             workname: job_name.value,
-            typework: type.value
+            typework: type.value,
+            involved: 0
         }
+
         addtoserver(detailObj, workObj)
     })
 }
 
 async function addtoserver(detailObj, workObj) {
     try {
-        let add_data = await fetch(createDetailAPI, {
+        let add_detail = await fetch(createDetailAPI, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -125,19 +127,28 @@ async function addtoserver(detailObj, workObj) {
             body: JSON.stringify(detailObj)
         })
         
-        let detailWork = await add_data.json()
-        // workObj["detailworkID"] = detailObj.d
-        console.log(detailObj)
+        // lấy ra id detail vừa tạo
+        detailworkID = (await add_detail.json()).detailworkID
+        workObj["detailworkID"] = detailworkID
+
+        let add_work = await fetch(createWorkAPI, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(workObj)
+        })
         
-        if (add_data.ok) {
+        if (add_detail.ok) {
             alert("Data Added Successfully")
         } else {
             alert("Data not added.\nPlease Try Again")
         }
     } catch (error) {
-        alert("Bad Request")
+        alert(error)
     }
 }
+
 window.addEventListener("load", () => {
     if (dataId != null) {
         editData(dataId)
@@ -148,7 +159,6 @@ window.addEventListener("load", () => {
         edit_strt_btn.innerText = "Fetching Data..."
     }
 })
-
 
 // let edit_strt_btn=document.querySelector("#edit_pge_btn")
 // edit_strt_btn.addEventListener("click",(event)=>{

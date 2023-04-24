@@ -9,6 +9,7 @@ let landingPage = document.getElementById("dashboardlogo").addEventListener("cli
 })
 
 let fetchURL = "https://636d633891576e19e327545a.mockapi.io/companies";
+let findAllWorkAPI = "http://192.168.138.1:8080/api/work/find-all-work";
 
 let companyData = document.querySelector(".companyList>div");
 
@@ -16,7 +17,7 @@ let arr = [];
 // fetch company data
 async function fetchData(pageNumber = 1) {
   try {
-    let res = await fetch(`${fetchURL}?page=${pageNumber}&limit=14`);
+    let res = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`);
     let data = await res.json();
     arr = data;
     renderData(arr);
@@ -35,18 +36,18 @@ function renderData(comData) {
   companyData.innerHTML = comData
     .map((item) => {
       return `
-            <div class="combox" data-id=${item.id}>
+            <div class="combox" data-id=${item.workID}>
                 <div>
                     <img
-                        src=${item.avatar}
+                        src=${item.image}
                         alt="image"
                     />
                 </div>
                 <div>
-                    <h3>${item.companyName}</h3>
-                    <p><i class="fa-solid fa-star"></i> ${item.rating}</p>
+                    <h3>${item.workname}</h3>
+                    <p><i class="fa-solid fa-star"></i> ${item.involved}/${item.quantity}</p>
                     <p>${item.location}</p>
-                    <p>${item.jobRole}</p>
+                    <p>${item.typeID}</p>
                 </div>
             </div>
         `;
