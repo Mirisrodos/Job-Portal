@@ -53,7 +53,12 @@ if (dataId == null) {
         </div>
         <div class="comp_data" id="job_rle">
            <label for="jobrole">Type Job : </label>
-           <input type="int" id="type" placeholder="Enter Job Role here..." required>
+           <select id="type" name="jobrole>
+                <option value="1">Dọn dẹp</option>
+                <option value="2">Dọn sân nhà</option>
+                <option value="3">Dọn vườn</option>
+                <option value="4">Dọn công ty</option>
+           </select>
         </div>
         <div class="comp_data" id="comp_desc">
            <p><label for="description">Description : </label></p>
@@ -71,7 +76,7 @@ if (dataId == null) {
    </form>
    `
 
-   //Dùng để create
+    //Dùng để create
     let save_add_btn = document.querySelector("#save")
     save_add_btn.addEventListener("click", (event) => {
         event.preventDefault()
@@ -84,21 +89,21 @@ if (dataId == null) {
         let hours = document.querySelector("#hours")
         let type = document.querySelector("#type")
         let desc = document.querySelector("#desc")
-        // let obj = {
-        //     job_name: job_name.value,
-        //     date: date.value,
-        //     contact: contact.value,
-        //     quantity: quantity.value,
-        //     income: income.value,
-        //     Salary: comp_salary.value,
-        //     location: location.value,
-        //     hours: hours.value,
-        //     type: type.value,
-        //     desc: desc.value
-        // }
-        
+            // let obj = {
+            //     job_name: job_name.value,
+            //     date: date.value,
+            //     contact: contact.value,
+            //     quantity: quantity.value,
+            //     income: income.value,
+            //     Salary: comp_salary.value,
+            //     location: location.value,
+            //     hours: hours.value,
+            //     type: type.value,
+            //     desc: desc.value
+            // }
+
         let detailObj = {
-            contact:contact.value,
+            contact: contact.value,
             description: desc.value,
             hours: hours.value,
             income: income.value
@@ -126,7 +131,7 @@ async function addtoserver(detailObj, workObj) {
             },
             body: JSON.stringify(detailObj)
         })
-        
+
         // lấy ra id detail vừa tạo
         detailworkID = (await add_detail.json()).detailworkID
         workObj["detailworkID"] = detailworkID
@@ -138,7 +143,7 @@ async function addtoserver(detailObj, workObj) {
             },
             body: JSON.stringify(workObj)
         })
-        
+
         if (add_detail.ok) {
             alert("Data Added Successfully")
         } else {
