@@ -13,13 +13,14 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/upload")
+@CrossOrigin("http://127.0.0.1:5501/")
 public class FileUploadController {
 
     @Autowired
     FileUploadService fileUploadService;
 
     @PostMapping("/uploadfile")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+    public ResponseEntity<?> uploadFile(@RequestParam("image") MultipartFile multipartFile) {
         return ResponseEntity.ok(fileUploadService.uploadFile(multipartFile));
     }
 

@@ -45,9 +45,21 @@ public class DetailWorkMapper {
         return detailWorkDtoList;
     }
 
-//    public static DetailWork mappingToDetailWork(DetailWorkDto detailWorkDto) {
-//        DetailWork detailWork = new DetailWork();
-//
-//
-//    }
+    public static DetailWork mappingToEntity(DetailWorkDto detailWorkDto) {
+        DetailWork detailWork = new DetailWork();
+
+        if (detailWorkDto != null) {
+            detailWork.setContact(detailWorkDto.getContact());
+            detailWork.setDescription(detailWorkDto.getDescription());
+            detailWork.setHours(detailWorkDto.getHours());
+            detailWork.setIncome(detailWorkDto.getIncome());
+        } else {
+            detailWork.setContact("");
+            detailWork.setDescription("");
+            detailWork.setHours(0);
+            detailWork.setIncome(0);
+        }
+
+        return detailWork;
+    }
 }

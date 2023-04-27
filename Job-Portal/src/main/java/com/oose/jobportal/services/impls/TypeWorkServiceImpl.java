@@ -16,7 +16,7 @@ public class TypeWorkServiceImpl implements TypeWorkService {
 
     @Override
     public TypeWork findByID(int id) {
-        return typeWorkRepo.findById(id).orElse(null);
+        return typeWorkRepo.findById(id).orElseThrow();
     }
 
     @Override

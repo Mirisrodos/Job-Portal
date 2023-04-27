@@ -1,9 +1,12 @@
 package com.oose.jobportal.controllers.client;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.oose.jobportal.models.dtos.DetailWorkDto;
 import com.oose.jobportal.models.dtos.WorkDto;
 import com.oose.jobportal.models.entities.DetailWork;
 import com.oose.jobportal.models.entities.Work;
+import com.oose.jobportal.models.mappers.DetailWorkMapper;
+import com.oose.jobportal.models.mappers.WorkMapper;
 import com.oose.jobportal.services.DetailWorkService;
 import com.oose.jobportal.services.TypeWorkService;
 import com.oose.jobportal.services.WorkService;
@@ -26,6 +29,7 @@ public class CWorkController {
     public ResponseEntity<?> createWork(@RequestBody WorkDto workDto) {
         Work work = new Work();
 
+        // Lỗi Mapper (detailworkService để private static không gọi được findByID (findByID = null))
         work.setDate(workDto.getDate());
         work.setLocation(workDto.getLocation());
         work.setQuantity(workDto.getQuantity());
@@ -33,18 +37,14 @@ public class CWorkController {
         work.setDetailwork(detailWorkService.findByID(workDto.getDetailworkID()));
         work.setType_work(typeWorkService.findByID(workDto.getTypeworkID()));
 
-        return ResponseEntity.ok(workService.save(work));
+        return ResponseEntity.ok(workService.save(work).getWorkID());
     }
 
     @PostMapping("/createDetail")
     public ResponseEntity<?> createDetailWork(@RequestBody DetailWorkDto detailWorkDto) {
-        DetailWork detailWork = new DetailWork();
 
-        detailWork.setContact(detailWorkDto.getContact());
-        detailWork.setDescription(detailWorkDto.getDescription());
-        detailWork.setHours(detailWorkDto.getHours());
-        detailWork.setIncome(detailWorkDto.getIncome());
+        DetailWork detailWork = DetailWorkMapper.mappingToEntity(detailWorkDto);
 
-        return ResponseEntity.ok(detailWorkService.save(detailWork)) ;
+        return ResponseEntity.ok(detailWorkService.save(detailWork).getDetailworkID());
     }
 }

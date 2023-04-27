@@ -1,49 +1,30 @@
-const saveUserAPI = "http://192.168.1.22:8090/account/saveUser"
+document.querySelector("#signin-btn").addEventListener("click", accDataFun);
 
-document.querySelector("#signup-btn").addEventListener("click", saveUser);
+function accDataFun() {
+    let fname;
+    let lname;
 
-async function saveUser() {
-    let name = document.querySelector("#fullname").value;
-    let gmail = document.querySelector("#email").value;
-    let password = document.querySelector("#password").value;
-    let location = document.querySelector("#location").value;
-    let phonenumber = document.querySelector("#phonenumber").value;
-    let accountnumber = document.querySelector("#accountnumber").value;
+    let emaillog = document.querySelector("#email").value;
+    let passwordlog = document.querySelector("#password").value;
 
-    let accData = []
-    let data = {
-        name,
-        gmail,
-        password,
-        location,
-        phonenumber,
-        accountnumber,
-        role: 1
-    };
+    let accData = JSON.parse(localStorage.getItem("accdata")) || [];
 
-    let response = await fetch(saveUserAPI, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
+    let credential = false;
 
-    if (response.status === 201) {
-        accData.push(data);
-        localStorage.setItem("accdata", JSON.stringify(accData));
-        setTimeout(() => {
-            alert("User account created Successfuly")
-            window.location.href = "signin.html";
-        }, 0);
-    } else if (response.status === 405) {
-        setTimeout(() => {
-            alert("Email already!")
-        }, 0);
+    for (let i = 0; i < accData.length; i++) {
+        if (accData[i].email == emaillog && accData[i].password == passwordlog) {
+            credential = true;
+            fname = accData[i].fname;
+            lname = accData[i].lname;
+            break;
+        }
+    }
+    if (credential == true) {
+        //document.querySelector("#account").textContent = fname + " " + lname;
+        alert("Login Successfull");
+        window.location.href = "job.html";
     } else {
-        setTimeout(() => {
-            alert("Server Error!")
-        }, 0);
+        alert("Wrong Credential");
     }
 }
 

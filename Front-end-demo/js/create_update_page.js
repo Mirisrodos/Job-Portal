@@ -1,5 +1,7 @@
-let createDetailAPI = "http://192.168.138.1:8080/api/client/work/createDetail"
-let createWorkAPI = "http://192.168.138.1:8080/api/client/work/createWork"
+let domain = "http://192.168.138.1:8080"
+let createDetailAPI = domain + "/api/client/work/createDetail"
+let createWorkAPI = domain + "/api/client/work/createWork"
+let uploadFileAPI = domain + "/upload/uploadfile"
 
 function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -13,67 +15,85 @@ function myFunction() {
 
 let dataId = localStorage.getItem("editId") || null
 if (dataId == null) {
-    let edit_form = document.querySelector(".form_of_editing")
+    let edit_form = document.querySelector(".main")
     edit_form.innerHTML = ""
-    let edit_btn = document.querySelector("#edit_bar")
-    edit_btn.innerHTML = `
-     <div id="add_bar">ADD DATA TO WEBSITE </div>
-   `
-    let add_form = document.querySelector(".form_of_editing")
+    let add_form = document.querySelector(".main")
     add_form.innerHTML = `
-   <form id="edit_form">
-   <div id="inside_form">
-       <div class="comp_data" id="comp_nme">
-           <label for="compmyName">Job name : </label>
-           <input type="text" id="name" placeholder="Enter Job name here..." required>
-        </div>
-        <div class="comp_data" id="comp_lgo">
-           <label for="companylogo">Date : </label>
-        <input type="date" id="date" placeholder="Enter URL of logo here..." required>
-        </div>
-        <div class="comp_data" id="comp_cntct">
-        <label for="contact">Contact : </label>
-        <input type="number" id="contact" placeholder="Enter Company contact here..." required >
-        </div>
-        <div class="comp_data" id="comp_exp">
-        <label for="experience">Quantity : </label>
-        <input type="text" id="quantity" placeholder="Enter experience here..." required>
-        </div>
-        <div class="comp_data" id="comp_slry">
-        <label for="salary">Income : </label>
-        <input type="text" id="income" placeholder="Enter salary details here..." required>
-        </div>
-        <div class="comp_data" id="comp_lct">
-        <label for="location">Location : </label>
-        <input type="text" id="location" placeholder="Enter Company location here..." required>
-        </div>
-        <div class="comp_data" id="comp_lct">
-        <label for="location">Hours : </label>
-        <input type="text" id="hours" placeholder="Enter Company location here..." required>
-        </div>
-        <div class="comp_data" id="job_rle">
-           <label for="jobrole">Type Job : </label>
-           <select id="type" name="jobrole>
-                <option value="1">Dọn dẹp</option>
-                <option value="2">Dọn sân nhà</option>
-                <option value="3">Dọn vườn</option>
-                <option value="4">Dọn công ty</option>
-           </select>
-        </div>
-        <div class="comp_data" id="comp_desc">
-           <p><label for="description">Description : </label></p>
-           <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Enter Company description here..." required></textarea>
-        </div>
-   </div>
-   <div class="submit_btn">
-       <div class="cancel_btn">
-           <button id="cancel"><a href="./admin_page.html"> Cancel</a></button>
-       </div>
-       <div class="save_btn">
-           <button id="save">Save</button>
-       </div>
-   </div>
-   </form>
+    <form action="" method="POST" class="form" id="edit_form">
+    <h3 class="heading">Tạo công việc mới</h3>
+    <p class="desc">Cùng nhau tạo thật nhiều việc để giúp ích cho xã hội ❤️</p>
+
+    <div class="spacer"></div>
+
+    <div class="form-group" id="comp_nme">
+        <label for="compmyName" class="form-label">Job name: </label>
+        <input id="name" name="name" rules="required" type="text" placeholder="Enter Job name here..." class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="comp_lgo">
+        <label for="companylogo" class="form-label">Date: </label>
+        <input id="date" name="date" rules="required" type="date" placeholder="Enter URL of logo here..." class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="comp_cntct">
+        <label for="contact" class="form-label">Contact: </label>
+        <input id="contact" name="contact" rules="required|max:12" type="number" placeholder="Enter Company contact here..." class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="comp_exp">
+        <label for="experience" class="form-label">Quantity: </label>
+        <input id="quantity" name="quantity" rules="required" type="text" placeholder="Enter experience here..." class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="comp_slry">
+        <label for="salary" class="form-label">Income: </label>
+        <input id="income" name="income" rules="required" type="text" placeholder="Enter salary details here..." class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="comp_lct">
+        <label for="location" class="form-label">Location: </label>
+        <input id="location" name="location" rules="required" type="text" placeholder="Enter Company location here..." class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="comp_lct">
+        <label for="hours" class="form-label">Hours: </label>
+        <input id="hours" name="hours" rules="required" type="text" placeholder="Enter Company location here..." class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="job_rle">
+        <label for="jobrole" class="form-label">Type Job : </label>
+        <select id="type" name="jobrole">
+            <option value=1>Dọn dẹp</option>
+            <option value=2>Dọn sân nhà</option>
+            <option value=3>Dọn vườn</option>
+            <option value=4>Dọn công ty</option>
+        </select>
+    </div>
+
+    <div class="form-group" id="comp_desc">
+        <p><label for="description" class="form-label">Description : </label></p>
+        <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Enter Company description here..." required></textarea>
+    </div>
+
+    <div class="form-group" id="comp_lct">
+        <label for="image" class="form-label">Image: </label>
+        <input id="image" name="image" rules="required" accept="image/*" type="file" placeholder="" class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-button" id="button">
+        <button id="save" class="form-submit">Save</button>
+        <button id="cancel" class="form-cancel"><a href="./admin_page.html"> Cancel</a></button>
+    </div>
+    
+</form>
    `
 
     //Dùng để create
@@ -89,18 +109,7 @@ if (dataId == null) {
         let hours = document.querySelector("#hours")
         let type = document.querySelector("#type")
         let desc = document.querySelector("#desc")
-            // let obj = {
-            //     job_name: job_name.value,
-            //     date: date.value,
-            //     contact: contact.value,
-            //     quantity: quantity.value,
-            //     income: income.value,
-            //     Salary: comp_salary.value,
-            //     location: location.value,
-            //     hours: hours.value,
-            //     type: type.value,
-            //     desc: desc.value
-            // }
+        let image = document.querySelector("#image")
 
         let detailObj = {
             contact: contact.value,
@@ -114,16 +123,22 @@ if (dataId == null) {
             location: location.value,
             quantity: quantity.value,
             workname: job_name.value,
-            typework: type.value,
+            typeworkID: type.value,
             involved: 0
         }
 
-        addtoserver(detailObj, workObj)
+        console.log(image)
+
+        imgObj = {
+            
+        }
+        addtoserver(detailObj, workObj, imgObj)
     })
 }
 
-async function addtoserver(detailObj, workObj) {
+async function addtoserver(detailObj, workObj, imgObj) {
     try {
+        //Tạo detail work
         let add_detail = await fetch(createDetailAPI, {
             method: "POST",
             headers: {
@@ -133,9 +148,22 @@ async function addtoserver(detailObj, workObj) {
         })
 
         // lấy ra id detail vừa tạo
-        detailworkID = (await add_detail.json()).detailworkID
-        workObj["detailworkID"] = detailworkID
+        // detailworkID = (await add_detail.json())
+        // workObj["detailworkID"] = detailworkID
 
+        // //Tạo ảnh
+        // let add_img = await fetch(uploadFileAPI, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(imgObj)
+        // })
+
+        // imgURL = (await add_img.json())
+        // console.log(imgURL.secure_url)
+
+        //Tạo work
         let add_work = await fetch(createWorkAPI, {
             method: "POST",
             headers: {
@@ -144,7 +172,10 @@ async function addtoserver(detailObj, workObj) {
             body: JSON.stringify(workObj)
         })
 
-        if (add_detail.ok) {
+
+
+
+        if (add_detail.ok && add_work.ok) {
             alert("Data Added Successfully")
         } else {
             alert("Data not added.\nPlease Try Again")
@@ -294,4 +325,167 @@ async function finalData(obj) {
     } catch (error) {
         alert("Bad Request")
     }
+}
+
+function Validator(formSelector) {
+
+    var _this = this;
+    var formRules = {};
+
+    function getParent(element, selector) {
+        while (element.parentElement) {
+            if (element.parentElement.matches(selector)) {
+                return element.parentElement;
+            }
+            element = element.parentElement;
+        }
+    };
+
+    /**
+     * Quy ước tạo rules:
+     * - Nếu có lỗi thì return error messages
+     * - Nếu không có lỗi thì return undefined
+     */
+    var validatorRules = {
+        required: function (value) {
+            return value ? undefined : 'Vui lòng nhập trường này';
+        },
+        email: function (value) {
+            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return regex.test(value) ? undefined : 'Trường này phải là email';
+        },
+        min: function (min) {
+            return function (value) {
+                return value.length >= min ? undefined : `Vui lòng nhập ít nhất ${min} kí tự`;
+            }
+        },
+        max: function (max) {
+            return function (value) {
+                return value.length <= max ? undefined : `Vui lòng nhập tối đa ${max} kí tự`;
+            }
+        }
+    };
+
+    // Lấy ra element trong DOM theo formSelector
+    var formElement = document.querySelector(formSelector);
+
+    // Chỉ xử lý khi có element trong DOM
+    if (formElement) {
+        var inputs = formElement.querySelectorAll('[name][rules]');
+        for (var input of inputs) {
+            var rules = input.getAttribute('rules').split('|');
+            for (var rule of rules) {
+                var isRuleHasValue = rule.includes(':');
+                var ruleInfo;
+
+                if (isRuleHasValue) {
+                    ruleInfo = rule.split(':');
+                    rule = ruleInfo[0];
+                }
+
+                var ruleFunc = validatorRules[rule];
+
+                if (isRuleHasValue) {
+                    ruleFunc = ruleFunc(ruleInfo[1]);
+                }
+
+                if (Array.isArray(formRules[input.name])) {
+                    formRules[input.name].push(ruleFunc);
+                } else {
+                    formRules[input.name] = [ruleFunc];
+                }
+            };
+
+            // Lắng nghe sự kiện để validate (blur, change, ...)
+            input.onblur = handleValidate;
+            input.oninput = handleClearValidate;
+        };
+
+        // Hàm thực hiện validate
+        function handleValidate(event) {
+            var rules = formRules[event.target.name];
+            var errorMessage;
+
+            for (var rule of rules) {
+                errorMessage = rule(event.target.value);
+                if (errorMessage) {
+                    break;
+                }
+            }
+
+            // Nếu có lỗi thì hiển thị message lỗi ra UI
+            if (errorMessage) {
+                var formGroup = getParent(event.target, '.form-group');
+                if (formGroup) {
+                    formGroup.classList.add('invalid');
+                    var formMessage = formGroup.querySelector('.form-message');
+                    if (formMessage) {
+                        formMessage.innerHTML = errorMessage;
+                    }
+                }
+            }
+
+            return !errorMessage;
+        };
+
+        // Hàm clear messages lỗi
+        function handleClearValidate(event) {
+            var formGroup = getParent(event.target, '.form-group');
+            if (formGroup.classList.contains('invalid')) {
+                formGroup.classList.remove('invalid');
+                var formMessage = formGroup.querySelector('.form-message');
+                if (formMessage) {
+                    formMessage.innerHTML = '';
+                }
+            }
+        };
+    }
+
+    // Xử lý hành vi submit form
+    formElement.onsubmit = function (event) {
+        event.preventDefault();
+
+        var inputs = formElement.querySelectorAll('[name][rules]');
+        var isValid = true;
+        for (var input of inputs) {
+            if (!handleValidate({ target: input })) {
+                isValid = false;
+            };
+        }
+
+        // Khi không có lỗi thì submit form
+        if (isValid) {
+            if (typeof _this.onSubmit === 'function') {
+                var enableInputs = formElement.querySelectorAll('[name]');
+                var formValues = Array.from(enableInputs).reduce(function (values, input) {
+                    switch (input.type) {
+                        case 'checkbox':
+                            if (!input.matches(':checked')) {
+                                values[input.name] = '';
+                                return values;
+                            }
+                            if (!Array.isArray(values[input.name])) {
+                                values[input.name] = [];
+                            }
+                            values[input.name].push(input.value);
+                            break;
+                        case 'radio':
+                            values[input.name] = formElement.querySelector('input[name="' + input.name + '"]:checked').value;
+                            break;
+                        case 'file':
+                            values[input.name] = input.files;
+                            break;
+                        default:
+                            values[input.name] = input.value;
+                    }
+                    return values;
+                }, {});
+
+                // Gọi lại hàm onSubmit và trả về kèm giá trị của form
+                _this.onSubmit(formValues);
+            } else {
+                formElement.submit();
+            }
+        }
+    };
 }
