@@ -2,11 +2,22 @@ package com.oose.jobportal.models.mappers;
 
 import com.oose.jobportal.models.dtos.DetailWorkDto;
 import com.oose.jobportal.models.entities.DetailWork;
+import com.oose.jobportal.services.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DetailWorkMapper {
+    private static PaymentService paymentService;
+
+    @Autowired
+    public DetailWorkMapper(PaymentService paymentService) {
+        DetailWorkMapper.paymentService = paymentService;
+    }
+
     public static DetailWorkDto mappingToDto(DetailWork detailWork) {
         DetailWorkDto detailWorkDto = new DetailWorkDto();
 
@@ -53,6 +64,7 @@ public class DetailWorkMapper {
             detailWork.setDescription(detailWorkDto.getDescription());
             detailWork.setHours(detailWorkDto.getHours());
             detailWork.setIncome(detailWorkDto.getIncome());
+            detailWork.setPayment(paymentService.findByID(detailWorkDto.getPaymentID()));
         } else {
             detailWork.setContact("");
             detailWork.setDescription("");

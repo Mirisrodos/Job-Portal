@@ -5,15 +5,21 @@ import com.oose.jobportal.models.entities.Work;
 import com.oose.jobportal.services.DetailWorkService;
 import com.oose.jobportal.services.TypeWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class WorkMapper {
-    @Autowired
     private static DetailWorkService detailWorkService;
-    @Autowired
     private static TypeWorkService typeWorkService;
+
+    @Autowired
+    public WorkMapper(DetailWorkService detailWorkService, TypeWorkService typeWorkService) {
+        WorkMapper.detailWorkService = detailWorkService;
+        WorkMapper.typeWorkService = typeWorkService;
+    }
 
     public static WorkDto mappingToDto(Work work) {
         WorkDto workDto = new WorkDto();

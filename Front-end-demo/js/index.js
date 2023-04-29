@@ -1,6 +1,6 @@
 // let topworkAPI ="https://636d633891576e19e327545a.mockapi.io/companies"
-let topworkAPI = "http://192.168.138.1:8080/api/work/top10-work"
-let detailworkAPI = "http://192.168.138.1:8080/api/work/detailwork"
+let topworkAPI = "http://192.168.138.1:8080/api/work/find-top10-work"
+let detailworkAPI = "http://192.168.138.1:8080/api/work/find-detailwork"
 
 
 document.getElementById("searchbtn").addEventListener("click",

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/upload")
+@RequestMapping("/api/upload")
 @CrossOrigin("http://127.0.0.1:5501/")
 public class FileUploadController {
 

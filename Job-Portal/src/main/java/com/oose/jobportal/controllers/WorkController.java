@@ -32,7 +32,7 @@ public class WorkController {
     @Autowired
     private TypeWorkService typeWorkService;
 
-    @GetMapping("/top10-work")
+    @GetMapping("/find-top10-work")
     public ResponseEntity<?> getTop10Work() {
         Calendar calendar = Calendar.getInstance();
         Date current = calendar.getTime();
@@ -50,8 +50,15 @@ public class WorkController {
         return ResponseEntity.ok(WorkMapper.mappingToListWork(workList));
     }
 
+    @GetMapping("/find-all-detailwork")
+    public ResponseEntity<?> getAllDetailWork() {
+        List<DetailWork> detailWorkList = detailWorkService.findAll();
 
-    @GetMapping("/detailwork")
+        return ResponseEntity.ok(DetailWorkMapper.mappingToListDto(detailWorkList));
+    }
+
+
+    @GetMapping("/find-detailwork")
     public ResponseEntity<?> getDetailWork(@Valid @RequestParam int id) {
         if (id != 0) {
             DetailWork detailWork = detailWorkService.findByID(id);
@@ -65,7 +72,7 @@ public class WorkController {
         return ResponseEntity.ok(detailWorkDtoList);
     }
 
-    @GetMapping("/typework")
+    @GetMapping("/find-typework")
     public ResponseEntity<?> getTypeWork(@Valid @RequestParam int id) {
         if (id != 0) {
             TypeWork typeWork = typeWorkService.findByID(id);

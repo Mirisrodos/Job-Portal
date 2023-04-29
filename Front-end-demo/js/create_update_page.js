@@ -1,7 +1,8 @@
 let domain = "http://192.168.138.1:8080"
 let createDetailAPI = domain + "/api/client/work/createDetail"
 let createWorkAPI = domain + "/api/client/work/createWork"
-let uploadFileAPI = domain + "/upload/uploadfile"
+let uploadFileAPI = domain + "/api/upload/uploadfile"
+let createPaymentAPI = domain + "/api/payment/save-payment"
 
 function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -127,8 +128,6 @@ if (dataId == null) {
             involved: 0
         }
 
-        console.log(image)
-
         imgObj = {
             
         }
@@ -138,6 +137,25 @@ if (dataId == null) {
 
 async function addtoserver(detailObj, workObj, imgObj) {
     try {
+        paymentObj = {
+            time: null,
+            paymentmethodID: 1
+        }
+
+        // Tạo payment
+        let create_payment = await fetch(createPaymentAPI, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(paymentObj)
+        })
+
+        // lấy ra id payment vừa tạo đưa vào detailwork
+        payment = (await create_payment.json())
+        detailObj['paymentID'] = payment.paymentID
+        console.log(detailObj)
+
         //Tạo detail work
         let add_detail = await fetch(createDetailAPI, {
             method: "POST",
@@ -146,22 +164,11 @@ async function addtoserver(detailObj, workObj, imgObj) {
             },
             body: JSON.stringify(detailObj)
         })
+        
 
         // lấy ra id detail vừa tạo
-        // detailworkID = (await add_detail.json())
-        // workObj["detailworkID"] = detailworkID
-
-        // //Tạo ảnh
-        // let add_img = await fetch(uploadFileAPI, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(imgObj)
-        // })
-
-        // imgURL = (await add_img.json())
-        // console.log(imgURL.secure_url)
+        detailworkID = (await add_detail.json())
+        workObj["detailworkID"] = detailworkID
 
         //Tạo work
         let add_work = await fetch(createWorkAPI, {

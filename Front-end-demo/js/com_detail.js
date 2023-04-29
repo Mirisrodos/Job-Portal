@@ -1,6 +1,6 @@
 let work = JSON.parse(localStorage.getItem("detailwork"));
-detailworkAPI = "http://192.168.138.1:8080/api/work/detailwork?id=" + work.detailworkID
-typeworkAPI = "http://192.168.138.1:8080/api/work/typework?id=" + work.typeworkID
+detailworkAPI = "http://192.168.138.1:8080/api/work/find-detailwork?id=" + work.detailworkID
+typeworkAPI = "http://192.168.138.1:8080/api/work/find-typework?id=" + work.typeworkID
 
 async function fetchdata(){
     try {
