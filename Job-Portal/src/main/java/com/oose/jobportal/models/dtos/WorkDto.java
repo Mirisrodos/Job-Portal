@@ -14,8 +14,6 @@ import java.util.Date;
 public class WorkDto {
     private int workID;
     private Date date;
-    @NotEmpty
-    private String location;
     @Min(1)
     private int quantity;
     @NotEmpty
@@ -24,4 +22,7 @@ public class WorkDto {
     private int typeworkID;
     private String image;
     private int involved;
+    private String city;
+    private String district;
+    private String address;
 }

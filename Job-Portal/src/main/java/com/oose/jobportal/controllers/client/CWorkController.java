@@ -1,6 +1,7 @@
 package com.oose.jobportal.controllers.client;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.oose.jobportal.constants.Domain;
 import com.oose.jobportal.models.dtos.DetailWorkDto;
 import com.oose.jobportal.models.dtos.PaymentDto;
 import com.oose.jobportal.models.dtos.WorkDto;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/client/work")
-@CrossOrigin("http://127.0.0.1:5501/")
+@CrossOrigin(Domain.CROSS_ORIGIN)
 public class CWorkController {
     @Autowired
     private WorkService workService;

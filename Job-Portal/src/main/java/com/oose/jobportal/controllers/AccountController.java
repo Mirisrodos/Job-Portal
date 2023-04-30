@@ -1,5 +1,6 @@
 package com.oose.jobportal.controllers;
 
+import com.oose.jobportal.constants.Domain;
 import com.oose.jobportal.models.entities.User;
 import com.oose.jobportal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/account")
-@CrossOrigin("http://127.0.0.1:5501/")
+@CrossOrigin(Domain.CROSS_ORIGIN)
 public class AccountController {
     @Autowired
     private UserService userService;

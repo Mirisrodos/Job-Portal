@@ -1,5 +1,6 @@
 package com.oose.jobportal.controllers.client;
 
+import com.oose.jobportal.constants.Domain;
 import com.oose.jobportal.models.dtos.DetailWorkDto;
 import com.oose.jobportal.models.dtos.TypeWorkDto;
 import com.oose.jobportal.models.dtos.WorkDto;
@@ -24,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/client")
-@CrossOrigin("http://127.0.0.1:5501/")
+@CrossOrigin(Domain.CROSS_ORIGIN)
 public class ClientController {
 
 }

@@ -1,5 +1,6 @@
 package com.oose.jobportal.controllers;
 
+import com.oose.jobportal.constants.Domain;
 import com.oose.jobportal.models.dtos.PaymentDto;
 import com.oose.jobportal.models.entities.Payment;
 import com.oose.jobportal.models.mappers.PaymentMapper;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/payment")
-@CrossOrigin("http://127.0.0.1:5501/")
+@CrossOrigin(Domain.CROSS_ORIGIN)
 public class PaymentController {
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.oose.jobportal.controllers;
 
+import com.oose.jobportal.constants.Domain;
 import com.oose.jobportal.services.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/api/upload")
-@CrossOrigin("http://127.0.0.1:5501/")
+@CrossOrigin(Domain.CROSS_ORIGIN)
 public class FileUploadController {
 
     @Autowired

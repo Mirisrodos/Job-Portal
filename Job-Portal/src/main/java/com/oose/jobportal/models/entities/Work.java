@@ -26,9 +26,7 @@ public class Work {
 	@OneToOne(targetEntity = DetailWork.class, fetch = FetchType.EAGER)
 	@JoinColumn(nullable = true, name = "detailworkID", unique = true)
 	private DetailWork detailwork;
-	
-	@Column(name = "location", nullable = true)
-	private String location;
+
 	
 	@Column(name = "quantity", nullable = true)
 	private int quantity;
@@ -41,4 +39,13 @@ public class Work {
 
 	@Column(name = "involved", nullable = true)
 	private int involved;
+
+	@Column(name = "city", nullable = true)
+	private String city;
+
+	@Column(name = "district", nullable = true)
+	private String district;
+
+	@Column(name = "address", nullable = true)
+	private String address;
 }
