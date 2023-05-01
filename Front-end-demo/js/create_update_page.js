@@ -19,6 +19,7 @@ if (dataId == null) {
     let edit_form = document.querySelector(".main")
     edit_form.innerHTML = ""
     let add_form = document.querySelector(".main")
+
     add_form.innerHTML = `
     <form action="" method="POST" class="form" id="edit_form">
     <h3 class="heading">Tạo công việc mới</h3>
@@ -57,8 +58,22 @@ if (dataId == null) {
     </div>
 
     <div class="form-group" id="comp_lct">
-        <label for="location" class="form-label">Location: </label>
-        <input id="location" name="location" rules="required" type="text" placeholder="Enter Company location here..." class="form-control">
+        <label for="location" class="form-label">Thành phố: </label>
+        <select id="locationThanhPho" name="jobrole">
+
+        </select>
+    </div>
+
+    <div class="form-group" id="comp_lct">
+        <label for="location" class="form-label">Quận/Huyện: </label>
+        <select id="locationQuanHuyen" name="jobrole">
+
+        </select>
+    </div>
+
+    <div class="form-group" id="comp_lct">
+        <label for="location_detail" class="form-label">Địa chỉ cụ thể: </label>
+        <input id="location_detail" name="location_detail" rules="required" type="text" placeholder="Enter location detail here..." class="form-control">
         <span class="form-message"></span>
     </div>
 
@@ -106,11 +121,15 @@ if (dataId == null) {
         let contact = document.querySelector("#contact")
         let quantity = document.querySelector("#quantity")
         let income = document.querySelector("#income")
-        let location = document.querySelector("#location")
         let hours = document.querySelector("#hours")
         let type = document.querySelector("#type")
         let desc = document.querySelector("#desc")
         let image = document.querySelector("#image")
+
+        // location
+        let city = document.querySelector("#locationThanhPho")
+        let district = document.querySelector("#locationQuanHuyen")
+        let address = document.querySelector("#location_detail")
 
         let detailObj = {
             contact: contact.value,
@@ -118,18 +137,20 @@ if (dataId == null) {
             hours: hours.value,
             income: income.value
         }
-
+        
         let workObj = {
             date: date.value,
-            location: location.value,
             quantity: quantity.value,
             workname: job_name.value,
             typeworkID: type.value,
-            involved: 0
+            involved: 0,
+            city: city.value,
+            district: district.value,
+            address: address.value
         }
 
         imgObj = {
-            
+
         }
         addtoserver(detailObj, workObj, imgObj)
     })
@@ -154,7 +175,6 @@ async function addtoserver(detailObj, workObj, imgObj) {
         // lấy ra id payment vừa tạo đưa vào detailwork
         payment = (await create_payment.json())
         detailObj['paymentID'] = payment.paymentID
-        console.log(detailObj)
 
         //Tạo detail work
         let add_detail = await fetch(createDetailAPI, {
@@ -164,7 +184,7 @@ async function addtoserver(detailObj, workObj, imgObj) {
             },
             body: JSON.stringify(detailObj)
         })
-        
+
 
         // lấy ra id detail vừa tạo
         detailworkID = (await add_detail.json())
@@ -354,20 +374,20 @@ function Validator(formSelector) {
      * - Nếu không có lỗi thì return undefined
      */
     var validatorRules = {
-        required: function (value) {
+        required: function(value) {
             return value ? undefined : 'Vui lòng nhập trường này';
         },
-        email: function (value) {
+        email: function(value) {
             var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             return regex.test(value) ? undefined : 'Trường này phải là email';
         },
-        min: function (min) {
-            return function (value) {
+        min: function(min) {
+            return function(value) {
                 return value.length >= min ? undefined : `Vui lòng nhập ít nhất ${min} kí tự`;
             }
         },
-        max: function (max) {
-            return function (value) {
+        max: function(max) {
+            return function(value) {
                 return value.length <= max ? undefined : `Vui lòng nhập tối đa ${max} kí tự`;
             }
         }
@@ -449,7 +469,7 @@ function Validator(formSelector) {
     }
 
     // Xử lý hành vi submit form
-    formElement.onsubmit = function (event) {
+    formElement.onsubmit = function(event) {
         event.preventDefault();
 
         var inputs = formElement.querySelectorAll('[name][rules]');
@@ -464,7 +484,7 @@ function Validator(formSelector) {
         if (isValid) {
             if (typeof _this.onSubmit === 'function') {
                 var enableInputs = formElement.querySelectorAll('[name]');
-                var formValues = Array.from(enableInputs).reduce(function (values, input) {
+                var formValues = Array.from(enableInputs).reduce(function(values, input) {
                     switch (input.type) {
                         case 'checkbox':
                             if (!input.matches(':checked')) {

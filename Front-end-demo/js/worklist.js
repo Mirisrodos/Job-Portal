@@ -8,34 +8,49 @@ let landingPage = document.getElementById("dashboardlogo").addEventListener("cli
   window.location.href="index.html"
 })
 
+let domain = "http://192.168.138.1:8080"
 let fetchURL = "https://636d633891576e19e327545a.mockapi.io/companies";
-let findAllWorkAPI = "http://192.168.138.1:8080/api/work/find-all-work";
-let findAllDetailWorkAPI = ""
+let findAllWorkAPI = domain + "/api/work/find-all-work";
+let findAllDetailWorkAPI = domain + "/api/detailwork/find-all-detailwork"
 
 let companyData = document.querySelector(".companyList>div");
 
-let arr = [];
+let arr_work = [];
+let arr_detail = [];
 // fetch company data
 async function fetchData(pageNumber = 1) {
   try {
-    let res = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`);
-    let data = await res.json();
-    arr = data;
-    renderData(arr);
+    // render work data
+    let res_work = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`);
+    let data_work = await res_work.json();
+    arr_work = data_work;
+    
+    // render detail work data
+    let res_detail = await fetch(`${findAllDetailWorkAPI}`);
+    let data_detail = await res_detail.json();
+    arr_detail = data_detail;
+    
+    renderData(arr_work);
+
     let totalPage = 5;
     paginationData(totalPage);
   } catch (err) {
     console.log("Error Occurred");
   }
 }
-
 fetchData();
 
-function renderData(comData) {
+function renderData(workObj) {
   // render data
   companyData.innerHTML = "";
-  companyData.innerHTML = comData
+  companyData.innerHTML = workObj
     .map((item) => {
+
+      // lấy ra detail work của mỗi công việc
+      let detailwork = arr_detail.filter((item1) => {
+        return item1.detailworkID === item.detailworkID
+      })
+
       return `
             <div class="combox" data-id=${item.workID}>
                 <div>
@@ -46,9 +61,10 @@ function renderData(comData) {
                 </div>
                 <div>
                     <h3>${item.workname}</h3>
-                    <p>${item.involved}/${item.quantity}</p>
-                    <p>${item.location}</p>
-                    <p>${item.date}</p>
+                    <p>Income: $${detailwork[0].income}</p>
+                    <p>Hours: ${detailwork[0].hours}h</p>
+                    <p>Quantity: ${item.involved}/${item.quantity}</p>
+                    <p>Date: ${item.date}</p>
                 </div>
             </div>
         `;
@@ -59,10 +75,9 @@ function renderData(comData) {
   let comboxes = document.querySelectorAll(".combox");
   for (let combox of comboxes) {
       combox.addEventListener("click", (event) => {
-          for (let i = 0; i < comData.length; i++) {
-              if (String(comData[i].workID) === combox.dataset.id) {
-                  console.log(JSON.stringify(comData[i]))
-                  localStorage.setItem("detailwork", JSON.stringify(comData[i]));
+          for (let i = 0; i < workObj.length; i++) {
+              if (String(workObj[i].workID) === combox.dataset.id) {
+                  localStorage.setItem("detailwork", JSON.stringify(workObj[i]));
                   window.location.href = "com_detail.html";
               }
           }
@@ -80,18 +95,19 @@ for (let inputButton of inputJobButtons) {
     }
     
     let inputValue = inputButton.value;
-    let filteredComp = arr.filter((item) => {
+    let filteredComp = arr_work.filter((item) => {
       return item.typeworkID === Number(inputValue);
     });
 
     if (inputButton.checked) {
       renderData(filteredComp);
     } else {
-      renderData(arr);
+      renderData(arr_work);
     }
   });
 }
 
+// filter location
 let inputLocationButtons = document.querySelectorAll("#location input");
 for (let inputButton of inputLocationButtons) {
   inputButton.addEventListener("click", (event) => {
@@ -101,14 +117,14 @@ for (let inputButton of inputLocationButtons) {
     }
 
     let inputValue = inputButton.value;
-    let filteredComp = arr.filter((item) => {
-      return item.location === inputValue;
+    let filteredComp = arr_work.filter((item) => {
+      return item.city === inputValue;
     });
 
     if (inputButton.checked) {
       renderData(filteredComp);
     } else {
-      renderData(arr);
+      renderData(arr_work);
     }
   });
 }
@@ -122,14 +138,34 @@ for (let inputButton of inputIncomeButtons) {
     }
 
     let inputValue = inputButton.value;
-    let filteredComp = arr.filter((item) => {
-      return item.income === inputValue;
+    let filteredComp = arr_detail.filter((item) => {
+      if (inputValue === "50") {
+        return item.income <= 50
+      } else if (inputValue === "100") {
+        return 50 < item.income &&  item.income <= 100
+      } else if (inputValue === "200") {
+        return 100 < item.income && item.income <= 200
+      } else if (inputValue === "201") {
+        return item.income > 200
+      }
     });
 
+    // Có danh sách detail work cần chuyển lại thành một danh sách work
+    let flag = false
+    let worklist = arr_work.filter((work) => {
+      flag = false
+      filteredComp.forEach((detail) => {
+        if (work.detailworkID === detail.detailworkID) {
+          flag = true
+        }
+      })
+      return flag
+    })
+
     if (inputButton.checked) {
-      renderData(filteredComp);
+      renderData(worklist);
     } else {
-      renderData(arr);
+      renderData(arr_work);
     }
   });
 }

@@ -34,14 +34,14 @@ public class CWorkController {
     private PaymentService paymentService;
 
     @PostMapping("/createWork")
-    public ResponseEntity<?> createWork(@Valid @RequestBody WorkDto workDto) {
+    public ResponseEntity<?> createWork( @RequestBody WorkDto workDto) {
         Work work = WorkMapper.mappingToEntity(workDto);
 
         return ResponseEntity.ok(workService.save(work).getWorkID());
     }
 
     @PostMapping("/createDetail")
-    public ResponseEntity<?> createDetailWork(@Valid @RequestBody DetailWorkDto detailWorkDto) {
+    public ResponseEntity<?> createDetailWork( @RequestBody DetailWorkDto detailWorkDto) {
 
         DetailWork detailWork = DetailWorkMapper.mappingToEntity(detailWorkDto);
 
