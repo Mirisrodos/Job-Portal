@@ -20,7 +20,7 @@ public class User {
 	@Column(name = "gmail", nullable = false , length = 30)
 	private String gmail;
 	
-	@Column(name = "password", nullable = false, length = 30)
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@Column(name = "role", nullable = false)
