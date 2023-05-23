@@ -10,11 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,28 +51,17 @@ public class AuthenticationService {
 //        Bug in this line
 //        What is this feature
 //        Call to AuthenticationManager Bean in ApplicationConfig
-//        logger.error(request.getPassword());
-//        logger.error(request.getGmail());
-        Authentication auth = null;
-        try {
-            logger.error("Welcome");
-            auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getGmail(),
-                            request.getPassword()
-                    )
-            );
-
-//            UsernamePasswordAuthenticationToken temp = new UsernamePasswordAuthenticationToken(
-//                    request.getGmail(),
-//                    request.getPassword());
-
-            logger.error("Hello");
-            SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(auth));
-
-        } catch (BadCredentialsException e) {
-            logger.error(e.getMessage());
-        }
+//        try {
+//            logger.error("Welcome");
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(
+//                            request.getGmail(),
+//                            request.getPassword()
+//                    )
+//            );
+//        } catch (BadCredentialsException e) {
+//            logger.error(e.getMessage());
+//        }
 
 //        Get user and mapper to user detail
         var user = userRepo.findByGmail(request.getGmail());
@@ -85,8 +69,6 @@ public class AuthenticationService {
 
 //        Create token from user detail
         var jwtToken = jwtService.generateToken(userDetail);
-
-//        var jwtToken = jwtService.generateToken((UserDetails) auth.getPrincipal());
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
