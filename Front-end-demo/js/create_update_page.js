@@ -1,8 +1,8 @@
 let domain = "http://192.168.138.1:8080"
-let createDetailAPI = domain + "/api/client/work/createDetail"
-let createWorkAPI = domain + "/api/client/work/createWork"
-let uploadFileAPI = domain + "/api/upload/uploadfile"
-let createPaymentAPI = domain + "/api/payment/save-payment"
+let createDetailAPI = domain + "/api/v1/client/detailwork/createDetail"
+let createWorkAPI = domain + "/api/v1/client/work/createWork"
+let uploadFileAPI = domain + "/api/v1/upload/uploadfile"
+let createPaymentAPI = domain + "/api/v1/payment/save-payment"
 
 function myFunction() {
     var x = document.getElementById("myTopnav");

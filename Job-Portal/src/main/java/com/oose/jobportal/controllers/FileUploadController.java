@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/api/upload")
+@RequestMapping("/api/v1/upload")
 @CrossOrigin(Domain.CROSS_ORIGIN)
 public class FileUploadController {
 

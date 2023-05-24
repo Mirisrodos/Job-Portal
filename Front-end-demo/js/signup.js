@@ -1,4 +1,4 @@
-const saveUserAPI = "http://192.168.1.22:8090/account/saveUser"
+const saveUserAPI = "http://192.168.1.22:8090/api/v1/account/saveUser"
 
 document.querySelector("#signup-btn").addEventListener("click", saveUser);
 

@@ -21,30 +21,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/client/work")
+@RequestMapping("/api/v1/client/work")
 @CrossOrigin(Domain.CROSS_ORIGIN)
 public class CWorkController {
     @Autowired
     private WorkService workService;
-    @Autowired
-    private DetailWorkService detailWorkService;
-    @Autowired
-    private TypeWorkService typeWorkService;
-    @Autowired
-    private PaymentService paymentService;
 
     @PostMapping("/createWork")
     public ResponseEntity<?> createWork( @RequestBody WorkDto workDto) {
         Work work = WorkMapper.mappingToEntity(workDto);
 
         return ResponseEntity.ok(workService.save(work).getWorkID());
-    }
-
-    @PostMapping("/createDetail")
-    public ResponseEntity<?> createDetailWork( @RequestBody DetailWorkDto detailWorkDto) {
-
-        DetailWork detailWork = DetailWorkMapper.mappingToEntity(detailWorkDto);
-
-        return ResponseEntity.ok(detailWorkService.save(detailWork).getDetailworkID());
     }
 }

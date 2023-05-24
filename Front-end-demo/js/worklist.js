@@ -10,8 +10,8 @@ let landingPage = document.getElementById("dashboardlogo").addEventListener("cli
 
 let domain = "http://192.168.138.1:8080"
 let fetchURL = "https://636d633891576e19e327545a.mockapi.io/companies";
-let findAllWorkAPI = domain + "/api/work/find-all-work";
-let findAllDetailWorkAPI = domain + "/api/detailwork/find-all-detailwork"
+let findAllWorkAPI = domain + "/api/v1/work/find-all-work";
+let findAllDetailWorkAPI = domain + "/api/v1/detailwork/find-all-detailwork"
 
 let companyData = document.querySelector(".companyList>div");
 

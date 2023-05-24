@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/v1/account")
 @CrossOrigin(Domain.CROSS_ORIGIN)
 public class AccountController {
     @Autowired

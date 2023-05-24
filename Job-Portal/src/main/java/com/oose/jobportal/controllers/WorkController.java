@@ -23,16 +23,13 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/work")
+@RequestMapping("/api/v1/work")
 @CrossOrigin(Domain.CROSS_ORIGIN)
 public class WorkController {
     @Autowired
     private WorkService workService;
-    @Autowired
-    private DetailWorkService detailWorkService;
-    @Autowired
-    private TypeWorkService typeWorkService;
 
+//    Change All work => top 10 work
     @GetMapping("/find-top10-work")
     public ResponseEntity<?> getTop10Work() {
         Calendar calendar = Calendar.getInstance();
@@ -51,38 +48,4 @@ public class WorkController {
         return ResponseEntity.ok(WorkMapper.mappingToListWork(workList));
     }
 
-    @GetMapping("/find-all-detailwork")
-    public ResponseEntity<?> getAllDetailWork() {
-        List<DetailWork> detailWorkList = detailWorkService.findAll();
-
-        return ResponseEntity.ok(DetailWorkMapper.mappingToListDto(detailWorkList));
-    }
-
-
-    @GetMapping("/find-detailwork")
-    public ResponseEntity<?> getDetailWork(@Valid @RequestParam int id) {
-        if (id != 0) {
-            DetailWork detailWork = detailWorkService.findByID(id);
-            DetailWorkDto detailWorkDto = DetailWorkMapper.mappingToDto(detailWork);
-
-            return ResponseEntity.ok(detailWorkDto);
-        }
-        List<DetailWork> detailWorkList = detailWorkService.findAll();
-        List<DetailWorkDto> detailWorkDtoList = DetailWorkMapper.mappingToListDto(detailWorkList);
-
-        return ResponseEntity.ok(detailWorkDtoList);
-    }
-
-    @GetMapping("/find-typework")
-    public ResponseEntity<?> getTypeWork(@Valid @RequestParam int id) {
-        if (id != 0) {
-            TypeWork typeWork = typeWorkService.findByID(id);
-            TypeWorkDto typeWorkDto = TypeworkMapper.mappingToDto(typeWork);
-            return ResponseEntity.ok(typeWorkDto);
-        }
-
-        List<TypeWork> typeWorkList = typeWorkService.findAll();
-        List<TypeWorkDto> typeWorkDtoList = TypeworkMapper.mappingToListDto(typeWorkList);
-        return ResponseEntity.ok(typeWorkDtoList);
-    }
 }
