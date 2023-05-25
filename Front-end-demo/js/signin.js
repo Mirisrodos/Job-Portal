@@ -1,6 +1,8 @@
+var domain = "http://192.168.138.1:8080"
+var loginAPI = domain + "/api/v1/client/account/login"
 document.querySelector("#signin-btn").addEventListener("click", accDataFun);
 
-function accDataFun() {
+async function accDataFun() {
     let fname;
     let lname;
 
@@ -11,14 +13,30 @@ function accDataFun() {
 
     let credential = false;
 
-    for (let i = 0; i < accData.length; i++) {
-        if (accData[i].email == emaillog && accData[i].password == passwordlog) {
-            credential = true;
-            fname = accData[i].fname;
-            lname = accData[i].lname;
-            break;
-        }
+    let loginObj = {
+        gmail: emaillog,
+        password: passwordlog
     }
+
+    // Login
+    let login = await fetch(loginAPI, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(loginObj)
+    })
+    let token = await login.json()
+
+    if (token.token) {
+        localStorage.setItem("token", token.token)
+        credential = true;
+    } else {
+        credential = false;
+    }
+
+    console.log(localStorage.getItem("token"))
+    
     if (credential == true) {
         //document.querySelector("#account").textContent = fname + " " + lname;
         alert("Login Successfull");

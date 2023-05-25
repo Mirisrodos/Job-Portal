@@ -162,12 +162,14 @@ async function addtoserver(detailObj, workObj, imgObj) {
             time: null,
             paymentmethodID: 1
         }
+        token = localStorage.getItem("token")
 
         // Tạo payment
         let create_payment = await fetch(createPaymentAPI, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                authorization: token ? `Bearer ${token}` : ""
             },
             body: JSON.stringify(paymentObj)
         })
@@ -180,7 +182,8 @@ async function addtoserver(detailObj, workObj, imgObj) {
         let add_detail = await fetch(createDetailAPI, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                authorization: token ? `Bearer ${token}` : ""
             },
             body: JSON.stringify(detailObj)
         })
@@ -194,7 +197,8 @@ async function addtoserver(detailObj, workObj, imgObj) {
         let add_work = await fetch(createWorkAPI, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                authorization: token ? `Bearer ${token}` : ""
             },
             body: JSON.stringify(workObj)
         })

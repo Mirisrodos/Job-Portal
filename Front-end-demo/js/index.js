@@ -20,7 +20,15 @@ let register = document.getElementById("registerbtn").addEventListener("click", 
 let realData = []
 async function fetchdata() {
     try {
-        let res = await fetch(topworkAPI)
+        let token = localStorage.getItem("token")
+        
+        let res = await fetch(`${topworkAPI}`, {
+            method: "GET",
+              headers: {
+                  "Content-Type": "application/json",
+                  authorization: token ? `Bearer ${token}` : ""
+              }
+          });
         let data = await res.json()
 
         renderData2(data)

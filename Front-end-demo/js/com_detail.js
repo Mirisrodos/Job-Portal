@@ -4,10 +4,25 @@ typeworkAPI = "http://192.168.138.1:8080/api/v1/typework/find-typework?id=" + wo
 
 async function fetchdata(){
     try {
-        let restw = await fetch(typeworkAPI)
+        let token = localStorage.getItem("token")
+
+
+        let restw = await fetch(typeworkAPI, {
+            method: "GET",
+              headers: {
+                  "Content-Type": "application/json",
+                  authorization: token ? `Bearer ${token}` : ""
+              }
+          });
         let typework = await restw.json()
 
-        let restdw = await fetch(detailworkAPI)
+        let restdw = await fetch(detailworkAPI, {
+            method: "GET",
+              headers: {
+                  "Content-Type": "application/json",
+                  authorization: token ? `Bearer ${token}` : ""
+              }
+          });
         let detailwork = await restdw.json()
 
         let reslocation = await fetch('https://provinces.open-api.vn/api/?depth=2')

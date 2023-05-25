@@ -21,12 +21,26 @@ let arr_detail = [];
 async function fetchData(pageNumber = 1) {
   try {
     // render work data
-    let res_work = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`);
+    // let res_work = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`);
+    let token = localStorage.getItem("token")
+    let res_work = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`, {
+      method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: token ? `Bearer ${token}` : ""
+        }
+    });
     let data_work = await res_work.json();
     arr_work = data_work;
-    
+        
     // render detail work data
-    let res_detail = await fetch(`${findAllDetailWorkAPI}`);
+    let res_detail = await fetch(`${findAllDetailWorkAPI}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token ? `Bearer ${token}` : ""
+      }
+    });
     let data_detail = await res_detail.json();
     arr_detail = data_detail;
     
