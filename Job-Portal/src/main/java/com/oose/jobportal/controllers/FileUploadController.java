@@ -2,6 +2,7 @@ package com.oose.jobportal.controllers;
 
 import com.oose.jobportal.constants.Domain;
 import com.oose.jobportal.services.FileUploadService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,10 @@ import java.util.Map;
 @Controller
 @RequestMapping("/api/v1/upload")
 @CrossOrigin(Domain.CROSS_ORIGIN)
+@RequiredArgsConstructor
 public class FileUploadController {
 
-    @Autowired
-    FileUploadService fileUploadService;
+    private final FileUploadService fileUploadService;
 
     @PostMapping("/uploadfile")
     public ResponseEntity<?> uploadFile(@RequestParam("image") MultipartFile multipartFile) {

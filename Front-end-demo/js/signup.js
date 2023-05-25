@@ -1,4 +1,5 @@
-const saveUserAPI = "http://192.168.1.22:8090/api/v1/account/saveUser"
+// Sử lại địa chỉ API
+// const saveUserAPI = "http://192.168.1.22:8090/api/v1/account/saveUser"
 
 document.querySelector("#signup-btn").addEventListener("click", saveUser);
 

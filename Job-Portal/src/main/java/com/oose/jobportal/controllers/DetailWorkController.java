@@ -6,6 +6,7 @@ import com.oose.jobportal.models.entities.DetailWork;
 import com.oose.jobportal.models.mappers.DetailWorkMapper;
 import com.oose.jobportal.services.DetailWorkService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/v1/detailwork")
 @CrossOrigin(Domain.CROSS_ORIGIN)
+@RequiredArgsConstructor
 public class DetailWorkController {
-    @Autowired
-    private DetailWorkService detailWorkService;
+    private final DetailWorkService detailWorkService;
 
     @GetMapping("/find-all-detailwork")
     public ResponseEntity<?> getAllDetailWork() {

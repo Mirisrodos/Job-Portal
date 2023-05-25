@@ -16,6 +16,7 @@ import com.oose.jobportal.services.PaymentService;
 import com.oose.jobportal.services.TypeWorkService;
 import com.oose.jobportal.services.WorkService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +24,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/client/work")
 @CrossOrigin(Domain.CROSS_ORIGIN)
+@RequiredArgsConstructor
 public class CWorkController {
-    @Autowired
-    private WorkService workService;
+    private final WorkService workService;
 
     @PostMapping("/createWork")
     public ResponseEntity<?> createWork( @RequestBody WorkDto workDto) {

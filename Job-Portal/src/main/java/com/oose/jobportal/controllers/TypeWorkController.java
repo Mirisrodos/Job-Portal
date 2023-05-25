@@ -6,6 +6,7 @@ import com.oose.jobportal.models.entities.TypeWork;
 import com.oose.jobportal.models.mappers.TypeworkMapper;
 import com.oose.jobportal.services.TypeWorkService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/typework")
 @CrossOrigin(Domain.CROSS_ORIGIN)
+@RequiredArgsConstructor
 public class TypeWorkController {
-    @Autowired
-    private TypeWorkService typeWorkService;
+    private final TypeWorkService typeWorkService;
 
     @GetMapping("/find-typework")
     public ResponseEntity<?> getTypeWork(@Valid @RequestParam int id) {

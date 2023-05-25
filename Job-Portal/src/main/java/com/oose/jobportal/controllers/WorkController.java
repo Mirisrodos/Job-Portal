@@ -14,6 +14,7 @@ import com.oose.jobportal.services.DetailWorkService;
 import com.oose.jobportal.services.TypeWorkService;
 import com.oose.jobportal.services.WorkService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/work")
 @CrossOrigin(Domain.CROSS_ORIGIN)
+@RequiredArgsConstructor
 public class WorkController {
-    @Autowired
-    private WorkService workService;
+
+    private final WorkService workService;
 
 //    Change All work => top 10 work
     @GetMapping("/find-top10-work")

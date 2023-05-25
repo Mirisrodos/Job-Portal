@@ -5,6 +5,7 @@ import com.oose.jobportal.models.dtos.PaymentDto;
 import com.oose.jobportal.models.entities.Payment;
 import com.oose.jobportal.models.mappers.PaymentMapper;
 import com.oose.jobportal.services.PaymentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/payment")
 @CrossOrigin(Domain.CROSS_ORIGIN)
+@RequiredArgsConstructor
 public class PaymentController {
 
-    @Autowired
-    PaymentService paymentService;
+    private final PaymentService paymentService;
 
     @PostMapping("save-payment")
     public ResponseEntity<?> createPayment(@RequestBody PaymentDto paymentDto) {
