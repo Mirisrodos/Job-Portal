@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class CAccountController {
     private final UserService userService;
     private final AuthenticationService service;
+    private final PasswordEncoder passwordEncoder;
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginAccount(@RequestBody AuthenticationRequest request) {
@@ -34,6 +36,8 @@ public class CAccountController {
 
     @PostMapping("/saveUser")
     public ResponseEntity<String> saveUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         if(userService.findUserbyGmail(user.getGmail())) {
             return new ResponseEntity<String>("email already", HttpStatus.METHOD_NOT_ALLOWED);
         } else {

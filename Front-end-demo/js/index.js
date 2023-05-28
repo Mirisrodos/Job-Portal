@@ -1,11 +1,10 @@
 // let topworkAPI ="https://636d633891576e19e327545a.mockapi.io/companies"
 let topworkAPI = "http://192.168.138.1:8080/api/v1/work/find-top10-work"
-let detailworkAPI = "http://192.168.138.1:8080/api/v1/detailwork/find-detailwork"
 
 
 document.getElementById("searchbtn").addEventListener("click",
     () => {
-        window.location.href = "companies.html"
+        window.location.href = "worklist.html"
     })
 
 
@@ -21,12 +20,13 @@ let realData = []
 async function fetchdata() {
     try {
         let token = localStorage.getItem("token")
+        console.log(token)
         
         let res = await fetch(`${topworkAPI}`, {
             method: "GET",
               headers: {
                   "Content-Type": "application/json",
-                  authorization: token ? `Bearer ${token}` : ""
+                //   authorization: token ? `Bearer ${token}` : ""
               }
           });
         let data = await res.json()

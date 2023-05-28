@@ -32,4 +32,9 @@ public class TypeWorkController {
         List<TypeWorkDto> typeWorkDtoList = TypeworkMapper.mappingToListDto(typeWorkList);
         return ResponseEntity.ok(typeWorkDtoList);
     }
+    @GetMapping("/find-all-type")
+    public ResponseEntity<?> findAllType() {
+        List<TypeWorkDto> typeWorkDtoList = TypeworkMapper.mappingToListDto(typeWorkService.findAll());
+        return ResponseEntity.ok(typeWorkDtoList);
+    }
 }

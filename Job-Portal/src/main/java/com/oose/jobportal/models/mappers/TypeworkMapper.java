@@ -15,11 +15,13 @@ public class TypeworkMapper {
         if (typeWork == null) {
             typeWorkDto.setTypeworkID(-1);
             typeWorkDto.setNametypework("");
+            typeWorkDto.setPrice(0);
             return typeWorkDto;
         }
 
         typeWorkDto.setTypeworkID(typeWork.getTypeworkID());
         typeWorkDto.setNametypework(typeWork.getNametypework());
+        typeWorkDto.setPrice(typeWork.getPrice());
 
         return typeWorkDto;
     }

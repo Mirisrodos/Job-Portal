@@ -1,18 +1,18 @@
 let work = JSON.parse(localStorage.getItem("detailwork"));
 detailworkAPI = "http://192.168.138.1:8080/api/v1/detailwork/find-detailwork?id=" + work.detailworkID
 typeworkAPI = "http://192.168.138.1:8080/api/v1/typework/find-typework?id=" + work.typeworkID
+let authenAPI = "http://192.168.138.1:8080/api/v1/client/client/checkPermit"
 
 async function fetchdata(){
     try {
-        let token = localStorage.getItem("token")
-
+        token = localStorage.getItem("token")
 
         let restw = await fetch(typeworkAPI, {
             method: "GET",
-              headers: {
-                  "Content-Type": "application/json",
-                  authorization: token ? `Bearer ${token}` : ""
-              }
+            headers: {
+                "Content-Type": "application/json",
+                // authorization: token ? `Bearer ${token}` : ""
+            }
           });
         let typework = await restw.json()
 
@@ -20,7 +20,7 @@ async function fetchdata(){
             method: "GET",
               headers: {
                   "Content-Type": "application/json",
-                  authorization: token ? `Bearer ${token}` : ""
+                //   authorization: token ? `Bearer ${token}` : ""
               }
           });
         let detailwork = await restdw.json()
@@ -31,7 +31,8 @@ async function fetchdata(){
         renderDetails(typework, detailwork, data_location)
 
     } catch (error) {
-        alert(error)
+        alert("Need authenticate")
+        window.location.replace("signin.html")
     }
 }
 

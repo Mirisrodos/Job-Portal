@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class TypeWorkDto {
     private int typeworkID;
     private String nametypework;
+    private int price;
 }

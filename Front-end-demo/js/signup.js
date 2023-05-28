@@ -1,5 +1,5 @@
 // Sử lại địa chỉ API
-// const saveUserAPI = "http://192.168.1.22:8090/api/v1/account/saveUser"
+const saveUserAPI = "http://192.168.138.1:8080/api/v1/client/account/saveUser"
 
 document.querySelector("#signup-btn").addEventListener("click", saveUser);
 
@@ -13,19 +13,20 @@ async function saveUser() {
 
     let accData = []
     let data = {
-        name,
-        gmail,
-        password,
-        location,
-        phonenumber,
-        accountnumber,
-        role: 1
+        accountnumber:accountnumber,
+        gmail:gmail,
+        location:location,
+        name:name,
+        password:password,
+        phonenumber:phonenumber,
+        ROLE: 1
+        
     };
 
     let response = await fetch(saveUserAPI, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
     })
@@ -34,7 +35,7 @@ async function saveUser() {
         accData.push(data);
         localStorage.setItem("accdata", JSON.stringify(accData));
         setTimeout(() => {
-            alert("User account created Successfuly")
+            alert("Đăng ký thành công")
             window.location.href = "signin.html";
         }, 0);
     } else if (response.status === 405) {

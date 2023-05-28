@@ -21,4 +21,7 @@ public class TypeWork {
 
 	@OneToMany(mappedBy = "type_work", cascade = CascadeType.ALL)
 	private List<Work> workList;
+
+	@Column(name = "price", nullable = true)
+	private int price;
 }

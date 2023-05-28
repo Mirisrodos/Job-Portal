@@ -52,7 +52,6 @@ public class AuthenticationService {
 //        What is this feature
 //        Call to AuthenticationManager Bean in ApplicationConfig
 //        try {
-//            logger.error("Welcome");
 //            authenticationManager.authenticate(
 //                    new UsernamePasswordAuthenticationToken(
 //                            request.getGmail(),

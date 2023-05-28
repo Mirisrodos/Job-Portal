@@ -49,5 +49,4 @@ public class WorkController {
 
         return ResponseEntity.ok(WorkMapper.mappingToListWork(workList));
     }
-
 }

@@ -26,10 +26,10 @@ async function accDataFun() {
         },
         body: JSON.stringify(loginObj)
     })
-    let token = await login.json()
+    let tokenJSON = await login.json()
 
-    if (token.token) {
-        localStorage.setItem("token", token.token)
+    if (tokenJSON.token) {
+        localStorage.setItem("token", tokenJSON.token)
         credential = true;
     } else {
         credential = false;
@@ -39,10 +39,10 @@ async function accDataFun() {
     
     if (credential == true) {
         //document.querySelector("#account").textContent = fname + " " + lname;
-        alert("Login Successfull");
+        alert("Đăng nhập thành công");
         window.location.href = "job.html";
     } else {
-        alert("Wrong Credential");
+        alert("Thông tin đăng nhập không đúng");
     }
 }
 

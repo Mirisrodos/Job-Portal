@@ -9,7 +9,6 @@ let landingPage = document.getElementById("dashboardlogo").addEventListener("cli
 })
 
 let domain = "http://192.168.138.1:8080"
-let fetchURL = "https://636d633891576e19e327545a.mockapi.io/companies";
 let findAllWorkAPI = domain + "/api/v1/work/find-all-work";
 let findAllDetailWorkAPI = domain + "/api/v1/detailwork/find-all-detailwork"
 
@@ -21,13 +20,12 @@ let arr_detail = [];
 async function fetchData(pageNumber = 1) {
   try {
     // render work data
-    // let res_work = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`);
     let token = localStorage.getItem("token")
     let res_work = await fetch(`${findAllWorkAPI}?page=${pageNumber}&limit=14`, {
       method: "GET",
         headers: {
             "Content-Type": "application/json",
-            authorization: token ? `Bearer ${token}` : ""
+            // authorization: token ? `Bearer ${token}` : ""
         }
     });
     let data_work = await res_work.json();
@@ -36,10 +34,10 @@ async function fetchData(pageNumber = 1) {
     // render detail work data
     let res_detail = await fetch(`${findAllDetailWorkAPI}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token ? `Bearer ${token}` : ""
-      }
+        headers: {
+            "Content-Type": "application/json",
+            // authorization: token ? `Bearer ${token}` : ""
+        }
     });
     let data_detail = await res_detail.json();
     arr_detail = data_detail;

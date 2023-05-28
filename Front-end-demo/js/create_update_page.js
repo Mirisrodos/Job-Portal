@@ -3,6 +3,8 @@ let createDetailAPI = domain + "/api/v1/client/detailwork/createDetail"
 let createWorkAPI = domain + "/api/v1/client/work/createWork"
 let uploadFileAPI = domain + "/api/v1/upload/uploadfile"
 let createPaymentAPI = domain + "/api/v1/payment/save-payment"
+let findAllTypeWork = domain + "/api/v1/typework/find-all-type"
+let authenAPI = domain + "/api/v1/client/client/checkPermit"
 
 function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -45,18 +47,6 @@ if (dataId == null) {
         <span class="form-message"></span>
     </div>
 
-    <div class="form-group" id="comp_exp">
-        <label for="experience" class="form-label">Quantity: </label>
-        <input id="quantity" name="quantity" rules="required" type="text" placeholder="Enter experience here..." class="form-control">
-        <span class="form-message"></span>
-    </div>
-
-    <div class="form-group" id="comp_slry">
-        <label for="salary" class="form-label">Income: </label>
-        <input id="income" name="income" rules="required" type="text" placeholder="Enter salary details here..." class="form-control">
-        <span class="form-message"></span>
-    </div>
-
     <div class="form-group" id="comp_lct">
         <label for="location" class="form-label">Thành phố: </label>
         <select id="locationThanhPho" name="jobrole">
@@ -79,18 +69,25 @@ if (dataId == null) {
 
     <div class="form-group" id="comp_lct">
         <label for="hours" class="form-label">Hours: </label>
-        <input id="hours" name="hours" rules="required" type="text" placeholder="Enter Company location here..." class="form-control">
+        <input id="hours" name="hours" rules="required" type="number" value="1" class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group" id="comp_exp">
+        <label for="experience" class="form-label">Quantity: </label>
+        <input id="quantity" name="quantity" rules="required" type="number" value="1" class="form-control">
         <span class="form-message"></span>
     </div>
 
     <div class="form-group" id="job_rle">
-        <label for="jobrole" class="form-label">Type Job : </label>
-        <select id="type" name="jobrole">
-            <option value=1>Dọn dẹp</option>
-            <option value=2>Dọn sân nhà</option>
-            <option value=3>Dọn vườn</option>
-            <option value=4>Dọn công ty</option>
+        <label for="typework" class="form-label">Type Job : </label>
+        <select id="typework" name="typework">
         </select>
+    </div>
+    
+    <div class="form-group" id="comp_slry">
+        <label for="income" class="form-label">Income: </label>
+        <span id="income" name="income" class="form-control"></span>
     </div>
 
     <div class="form-group" id="comp_desc">
@@ -122,7 +119,7 @@ if (dataId == null) {
         let quantity = document.querySelector("#quantity")
         let income = document.querySelector("#income")
         let hours = document.querySelector("#hours")
-        let type = document.querySelector("#type")
+        let type = document.querySelector("#typework")
         let desc = document.querySelector("#desc")
         let image = document.querySelector("#image")
 
@@ -156,6 +153,47 @@ if (dataId == null) {
     })
 }
 
+async function getDataTypeWork() {
+    const response = await fetch(findAllTypeWork)
+    const data = await response.json();
+    length = data.length;
+    var temp = "";
+    for (i = 0; i < length; i++) {
+        temp += "<option";
+        temp += " value='" + data[i].typeworkID + "'>";
+        temp += data[i].nametypework + "</option>";
+    }
+
+    document.getElementById("typework").innerHTML = temp;
+}
+
+async function setDataIncome() {
+    let hours = document.getElementById("hours");
+    let quantity = document.getElementById("quantity");
+    let typework = document.getElementById("typework");
+
+    const response = await fetch(findAllTypeWork, {
+        method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+          }
+      });
+    const data = await response.json();
+    length = data.length;
+    var temp = 0;
+    var typework_select = 0;
+    for (i = 0; i < length; i++) {
+        if (typework.value == data[i].typeworkID) {
+            typework_select = i;
+            break;
+        }
+    }
+
+    temp = temp + data[typework_select].price * hours.value * quantity.value;
+
+    document.getElementById("income").innerHTML = temp.toString() + ' VNĐ';
+}
+
 async function addtoserver(detailObj, workObj, imgObj) {
     try {
         paymentObj = {
@@ -163,6 +201,7 @@ async function addtoserver(detailObj, workObj, imgObj) {
             paymentmethodID: 1
         }
         token = localStorage.getItem("token")
+        console.log(token)
 
         // Tạo payment
         let create_payment = await fetch(createPaymentAPI, {
@@ -212,7 +251,8 @@ async function addtoserver(detailObj, workObj, imgObj) {
             alert("Data not added.\nPlease Try Again")
         }
     } catch (error) {
-        alert(error)
+        alert("Need authenticate")
+        window.location.replace("signin.html")
     }
 }
 

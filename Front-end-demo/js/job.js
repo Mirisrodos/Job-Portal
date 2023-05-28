@@ -2,6 +2,7 @@ let companyURL ="https://636d633891576e19e327545a.mockapi.io/companies"
 
 document.getElementById("logout").addEventListener("click",()=>{
     window.location.href="index.html"
+    localStorage.setItem("token", "")
 })
 
 

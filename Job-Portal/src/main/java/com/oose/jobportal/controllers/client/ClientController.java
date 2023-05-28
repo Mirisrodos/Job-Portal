@@ -25,9 +25,12 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/v1/client/client")
 @CrossOrigin(Domain.CROSS_ORIGIN)
 @RequiredArgsConstructor
 public class ClientController {
-
+    @GetMapping("/checkPermit")
+    public ResponseEntity<?> checkPermit() {
+        return ResponseEntity.ok(true);
+    }
 }
