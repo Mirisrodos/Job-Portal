@@ -102,8 +102,8 @@ if (dataId == null) {
     </div>
 
     <div class="form-button" id="button">
-        <button id="save" class="form-submit">Save</button>
-        <button id="cancel" class="form-cancel"><a href="./admin_page.html"> Cancel</a></button>
+        <button id="save" class="form-submit">Tạo</button>
+        <button id="cancel" class="form-cancel"><a href="./admin_page.html"> Thoát</a></button>
     </div>
     
 </form>

@@ -25,7 +25,7 @@ public class CAccountController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginAccount(@RequestBody AuthenticationRequest request) {
-        if (userService.checkPassword(request.getGmail(), request.getPassword())) {
+        if (userService.checkAccount(request.getGmail(), request.getPassword())) {
             return ResponseEntity.ok(service.authenticate(request));
         } else {
             return ResponseEntity.ok(AuthenticationResponse.builder()

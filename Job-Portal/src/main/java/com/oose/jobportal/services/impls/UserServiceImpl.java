@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkPassword(String gmail, String pass) {
+	public boolean checkAccount(String gmail, String pass) {
 		try {
 			User user = userRepo.findByGmail(gmail);
 

@@ -3,6 +3,13 @@ const saveUserAPI = "http://192.168.138.1:8080/api/v1/client/account/saveUser"
 
 document.querySelector("#signup-btn").addEventListener("click", saveUser);
 
+let login = document.getElementById("loginbtn").addEventListener("click", () => {
+    window.location.href = "signin.html"
+})
+let register = document.getElementById("registerbtn").addEventListener("click", () => {
+    window.location.href = "signup.html"
+})
+
 async function saveUser() {
     let name = document.querySelector("#fullname").value;
     let gmail = document.querySelector("#email").value;
@@ -13,14 +20,14 @@ async function saveUser() {
 
     let accData = []
     let data = {
-        accountnumber:accountnumber,
-        gmail:gmail,
-        location:location,
-        name:name,
-        password:password,
-        phonenumber:phonenumber,
+        accountnumber: accountnumber,
+        gmail: gmail,
+        location: location,
+        name: name,
+        password: password,
+        phonenumber: phonenumber,
         ROLE: 1
-        
+
     };
 
     let response = await fetch(saveUserAPI, {

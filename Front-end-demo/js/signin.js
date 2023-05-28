@@ -2,6 +2,13 @@ var domain = "http://192.168.138.1:8080"
 var loginAPI = domain + "/api/v1/client/account/login"
 document.querySelector("#signin-btn").addEventListener("click", accDataFun);
 
+let login = document.getElementById("loginbtn").addEventListener("click", () => {
+    window.location.href = "signin.html"
+})
+let register = document.getElementById("registerbtn").addEventListener("click", () => {
+    window.location.href = "signup.html"
+})
+
 async function accDataFun() {
     let fname;
     let lname;
@@ -36,11 +43,11 @@ async function accDataFun() {
     }
 
     console.log(localStorage.getItem("token"))
-    
+
     if (credential == true) {
         //document.querySelector("#account").textContent = fname + " " + lname;
         alert("Đăng nhập thành công");
-        window.location.href = "job.html";
+        window.location.href = "index_login.html";
     } else {
         alert("Thông tin đăng nhập không đúng");
     }
