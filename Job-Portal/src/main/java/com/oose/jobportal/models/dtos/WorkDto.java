@@ -14,9 +14,7 @@ import java.util.Date;
 public class WorkDto {
     private int workID;
     private Date date;
-    @Min(1)
     private int quantity;
-    @NotEmpty
     private String workname;
     private int detailworkID;
     private int typeworkID;

@@ -1,4 +1,3 @@
-// let topworkAPI ="https://636d633891576e19e327545a.mockapi.io/companies"
 let topworkAPI = "http://192.168.138.1:8080/api/v1/work/find-top10-work"
 
 
@@ -31,7 +30,10 @@ async function fetchdata() {
           });
         let data = await res.json()
 
-        renderData2(data)
+        let reslocation = await fetch('https://provinces.open-api.vn/api/?depth=2')
+        let data_location = await reslocation.json()
+
+        renderData2(data, data_location)
     } catch (error) {
         alert(error)
     }
@@ -72,7 +74,7 @@ function rendercompanycarddata(arr) {
         let card = document.createElement("div")
         card.classList.add("companydatacard")
         card.addEventListener("click", () => {
-            window.location.href = "companies.html"
+            window.location.href = "worklist.html"
         })
         let name = document.createElement("h4");
         name.innerText = element.name;
@@ -90,10 +92,19 @@ function rendercompanycarddata(arr) {
 
 // Top Job
 let featurecompany = document.querySelector("#featureslide");
-function renderData2(comData) {
+function renderData2(comData, data_location) {    
     // render data
     featurecompany.innerHTML = "";
     featurecompany.innerHTML = comData.map((item) => {
+        let city_location = data_location.filter((location) => {
+            return location.codename === item.city
+        })
+
+        let district_location = city_location[0].districts.filter((location) => {
+            return location.codename === item.district
+        })
+    
+        console.log(city_location)
         return `
             <div class="combox" data-id=${item.workID}>
                 <div>
@@ -105,7 +116,7 @@ function renderData2(comData) {
                 </div>
                 <div>
                     <h3>${item.workname}</h3>
-                    <p>Địa điểm: ${item.location}</p>
+                    <p>Địa điểm: ${item.address} ${district_location[0].name} ${city_location[0].name}</p>
                     <p>Thời gian: ${item.date}</p>
                     <p>Số lượng: ${item.involved}/${item.quantity}</p>
                 </div>

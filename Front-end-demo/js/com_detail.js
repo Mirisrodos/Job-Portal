@@ -3,6 +3,11 @@ detailworkAPI = "http://192.168.138.1:8080/api/v1/detailwork/find-detailwork?id=
 typeworkAPI = "http://192.168.138.1:8080/api/v1/typework/find-typework?id=" + work.typeworkID
 let authenAPI = "http://192.168.138.1:8080/api/v1/client/client/checkPermit"
 
+let landingPage = document.getElementById("dashboardlogo").addEventListener("click",()=>{
+    window.location.href="index.html"
+  })
+  
+
 async function fetchdata() {
     try {
         token = localStorage.getItem("token")
@@ -31,8 +36,7 @@ async function fetchdata() {
         renderDetails(typework, detailwork, data_location)
 
     } catch (error) {
-        alert("Need authenticate")
-        window.location.replace("signin.html")
+        console.log(error)
     }
 }
 
